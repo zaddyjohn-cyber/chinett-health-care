@@ -141,7 +141,16 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 
-    careForm.addEventListener('submit', (e) => {
+    const showSuccess = (name) => {
+      if (!success) return;
+      const nameSpan = success.querySelector('[data-name]');
+      if (nameSpan) nameSpan.textContent = name;
+      careForm.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    careForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       let valid = true;
       careForm.querySelectorAll('.form-field').forEach(f => { if (!validateField(f)) valid = false; });
@@ -157,13 +166,40 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      const name = (careForm.querySelector('#full-name')?.value || '').trim().split(' ')[0] || 'there';
-      if (success) {
-        const nameSpan = success.querySelector('[data-name]');
-        if (nameSpan) nameSpan.textContent = name;
-        careForm.style.display = 'none';
-        success.classList.add('show');
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const val = (id) => (careForm.querySelector(id)?.value || '').trim();
+      const name = val('#full-name').split(' ')[0] || 'there';
+
+      const submitBtn = careForm.querySelector('button[type="submit"]');
+      const originalLabel = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      // Deliver the request to the inbox via FormSubmit (no backend / no signup).
+      const payload = {
+        _subject: 'New Care Request — Chinett HealthCare',
+        Name: val('#full-name'),
+        Phone: val('#phone'),
+        Email: val('#email'),
+        'Preferred Contact': val('#contact-method'),
+        'Care Type': val('#care-type'),
+        'Age Group': val('#age-group'),
+        'Start Date': val('#start-date'),
+        Duration: val('#duration'),
+        Location: val('#location'),
+        Notes: val('#notes'),
+        'Heard About Us': val('#hear')
+      };
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/chinetthealthcare@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('Request failed');
+        showSuccess(name);
+      } catch (err) {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
+        alert('Sorry, something went wrong sending your request. Please call (443) 563-7693 or email chinetthealthcare@gmail.com directly.');
       }
     });
   }

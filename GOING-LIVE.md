@@ -58,14 +58,14 @@ Real details now in place:
 - ✅ **Phone**: `(443) 563-7693` (main + emergency line), clickable `tel:+14435637693`
 - ✅ **WhatsApp**: `wa.me/14435637693`
 - ✅ **Address**: 5207 Plainfield Avenue, Baltimore, MD 21206 (+ Google Maps `q=` updated)
-- ✅ **Email**: standardized to `hello@chinettcare.com`
+- ✅ **Email**: `chinetthealthcare@gmail.com` everywhere (temporary Gmail until a domain email exists)
+- ✅ **Testimonials**: Americanized to US names + Maryland locations (still placeholder quotes —
+  replace with real, approved client testimonials when available)
 
 Still invented stand-ins — swap before publishing:
 - **President name/quote/signature** (about.html): "Dr. Chinwe Ett"
 - **Social links**: footer icons currently point to `#`
 - **Stats** (index.html): 500+, 1,200+, 6, 100% — confirm real numbers
-- **Testimonials**: still reference Nigerian cities (Lagos/Abuja/Port Harcourt) on a now
-  Baltimore-based company — update names/locations to real, approved quotes.
 - **Images**: currently hot-linked from Unsplash (requires internet, not guaranteed permanent).
   For production, download approved photos into `assets/images/` and update `src` paths.
 
@@ -87,13 +87,17 @@ The site is themed to the **Chinett HealthCare Inc. logo** palette (set in `styl
 - ✅ Privacy Policy (`privacy.html`) + Terms of Service (`terms.html`) — footer links now point to them
 - ✅ Favicon (`favicon.svg`) linked in every page `<head>`
 - ✅ Full rebrand to logo colors across all pages
-- Contact form: kept the **demo success state** (animated "Thank You", no real delivery).
-  To make it send for real, sign up at formspree.io and set the form to
-  `<form action="https://formspree.io/f/XXXX" method="POST">` (and give each field a `name`).
+- ✅ Contact form now **delivers to `chinetthealthcare@gmail.com`** via FormSubmit
+  (`https://formsubmit.co/ajax/...` in `scripts.js`) — no backend/signup, keeps the in-page
+  success animation. ⚠️ **Activation:** the FIRST submission triggers a one-time confirmation
+  email from FormSubmit to that Gmail — open it and click "Activate" once, then all future
+  submissions arrive in the inbox. When you move to a domain email, change the address in the
+  `fetch(...)` URL in `scripts.js` (and the displayed `mailto:` links).
 
 ## Still to do before launch
-- Replace remaining placeholders (see list above): president name, social links, stats, testimonials.
-- Confirm `hello@chinettcare.com` is the real address (and you own the domain), or find-and-replace it.
+- Replace remaining placeholders (see list above): president name, social links, stats, testimonial quotes.
+- **Activate FormSubmit** by submitting the contact form once and clicking the confirmation email.
+- Swap `chinetthealthcare@gmail.com` for the domain email once you have it.
 - Privacy/Terms are **templates** — have a lawyer review for the U.S./Maryland laws (e.g. HIPAA) that apply.
 
 ## Local preview
