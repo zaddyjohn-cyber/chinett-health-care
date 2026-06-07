@@ -50,20 +50,22 @@ Differences from the original spec, by intention (fewer dependencies, same resul
 | Stat counters animate on scroll | ✅ IntersectionObserver, custom counter |
 | Meta title + description per page | ✅ all 4 pages |
 | Phone numbers clickable `tel:` | ✅ |
-| WhatsApp uses `wa.me/` format | ✅ `wa.me/2348000000000` |
+| WhatsApp uses `wa.me/` format | ✅ `wa.me/14435637693` |
 
 ## ⚠️ Before you publish — replace placeholders
 
-These are invented stand-ins. Swap for the real details:
+Real details now in place:
+- ✅ **Phone**: `(443) 563-7693` (main + emergency line), clickable `tel:+14435637693`
+- ✅ **WhatsApp**: `wa.me/14435637693`
+- ✅ **Address**: 5207 Plainfield Avenue, Baltimore, MD 21206 (+ Google Maps `q=` updated)
+- ✅ **Email**: standardized to `hello@chinettcare.com`
+
+Still invented stand-ins — swap before publishing:
 - **President name/quote/signature** (about.html): "Dr. Chinwe Ett"
-- **Phone numbers**: `+234 800 000 0000` (main) and `+234 811 111 1111` (emergency)
-- **WhatsApp number**: `wa.me/2348000000000`
-- **Emails**: `care@chinetthealthcare.com`, `hello@chinettcare.com` (currently inconsistent — pick one)
-- **Office address**: "12 Care Avenue, Victoria Island, Lagos"
-- **Google Maps**: update the iframe `q=` to the real address
 - **Social links**: footer icons currently point to `#`
 - **Stats** (index.html): 500+, 1,200+, 6, 100% — confirm real numbers
-- **Testimonials**: confirm these are approved/real client quotes
+- **Testimonials**: still reference Nigerian cities (Lagos/Abuja/Port Harcourt) on a now
+  Baltimore-based company — update names/locations to real, approved quotes.
 - **Images**: currently hot-linked from Unsplash (requires internet, not guaranteed permanent).
   For production, download approved photos into `assets/images/` and update `src` paths.
 
@@ -90,11 +92,9 @@ The site is themed to the **Chinett HealthCare Inc. logo** palette (set in `styl
   `<form action="https://formspree.io/f/XXXX" method="POST">` (and give each field a `name`).
 
 ## Still to do before launch
-- Replace remaining placeholders (see list above): phone numbers, WhatsApp number, address,
-  president name, social links, stats, testimonials.
-- Email is now standardized to **`hello@chinettcare.com`** across all pages — confirm this is the
-  real address (and that you own the domain), or do a find-and-replace to the correct one.
-- Privacy/Terms are **templates** — have a lawyer review for NDPR/GDPR compliance.
+- Replace remaining placeholders (see list above): president name, social links, stats, testimonials.
+- Confirm `hello@chinettcare.com` is the real address (and you own the domain), or find-and-replace it.
+- Privacy/Terms are **templates** — have a lawyer review for the U.S./Maryland laws (e.g. HIPAA) that apply.
 
 ## Local preview
 No Node/Python on this machine, so a PowerShell static server is included:

@@ -298,6 +298,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 .quick-card input:focus, .quick-card select:focus { outline: none; border-color: var(--color-primary-light); box-shadow: 0 0 0 3px rgba(28,130,196,0.15); }
 .quick-card .btn { width: 100%; margin-top: 4px; }
 
+/* Hero brand logo (replaces quick-request card) */
+.hero-logo { display: flex; justify-content: center; align-items: center; }
+.hero-logo img {
+  max-width: 380px; width: 100%; border-radius: 16px; background: #000;
+  box-shadow: 0 24px 60px rgba(15,42,61,0.45);
+}
+
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
@@ -786,7 +793,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
    ============================================================ */
 @media (max-width: 992px) {
   .hero .container { grid-template-columns: 1fr; }
-  .quick-card { display: none; }
+  .quick-card, .hero-logo { display: none; }
   .mission .container { grid-template-columns: 1fr; }
   .mission-img { order: -1; }
   .services-grid, .audience-grid { grid-template-columns: repeat(2, 1fr); }
