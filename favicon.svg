@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0F2A3D"/>
+  <!-- green swoosh arc (left/bottom) -->
+  <path d="M32 9 A23 23 0 1 0 51 44" fill="none" stroke="#6FB13C" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- blue swoosh arc (top/right) -->
+  <path d="M20 51 A23 23 0 1 1 49 17" fill="none" stroke="#1C82C4" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- orange C monogram -->
+  <text x="32" y="33" font-family="Georgia, 'Cormorant Garamond', serif" font-size="34" font-weight="700"
+        fill="#F47A1F" text-anchor="middle" dominant-baseline="central">C</text>
+</svg>

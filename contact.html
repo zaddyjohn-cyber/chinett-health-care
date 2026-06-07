@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Chinett Health Care</title>
+  <meta name="description" content="Request a care professional from Chinett Health Care. Our team responds within 24 hours — confidential, no obligation. Call, email, or message us on WhatsApp." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" aria-label="Chinett HealthCare Inc. — Home">
+        <img src="chinett-logo.jpeg" alt="Chinett HealthCare Inc." />
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html#who-we-serve">Who We Serve</a></li>
+        <li><a href="about.html#why-us">Why Us</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="contact.html#request-form" class="btn btn-primary">Request a Nurse</a>
+      </div>
+      <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="services.html#who-we-serve">Who We Serve</a>
+    <a href="about.html#why-us">Why Us</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html#request-form" class="btn btn-primary">Request a Nurse</a>
+  </div>
+
+  <!-- ============ PAGE HERO (50vh) ============ -->
+  <header class="page-hero" style="min-height:50vh;">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="container" data-aos="fade-up">
+      <span class="section-label" style="color:var(--color-accent-light)">Get In Touch</span>
+      <h1>Let's Find the Right Care for You</h1>
+      <p>Our team is ready to listen, understand your needs, and connect you with a professional who truly fits.</p>
+      <div class="hero-trust-strip">
+        <span>📞 Fast Response</span>
+        <span>❤️ No Obligation</span>
+        <span>🔒 Fully Confidential</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ CONTACT SPLIT ============ -->
+  <section class="section contact-split" id="request-form">
+    <div class="container">
+
+      <!-- LEFT: FORM -->
+      <div data-aos="fade-up">
+        <form class="form-card" id="care-form" novalidate>
+          <h2>Request a Care Professional</h2>
+          <p class="form-sub">Fill in your details and we'll reach out within 24 hours with your match options.</p>
+
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="full-name">Full Name *</label>
+              <input id="full-name" type="text" placeholder="Your full name" required />
+              <span class="err-msg">Please enter your name.</span>
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone Number *</label>
+              <input id="phone" type="tel" placeholder="+234 ..." required />
+              <span class="err-msg">Please enter your phone number.</span>
+            </div>
+            <div class="form-field">
+              <label for="email">Email Address *</label>
+              <input id="email" type="email" placeholder="you@email.com" required />
+              <span class="err-msg">Please enter a valid email.</span>
+            </div>
+            <div class="form-field">
+              <label for="contact-method">Preferred Contact Method</label>
+              <select id="contact-method">
+                <option>Phone</option>
+                <option>Email</option>
+                <option>WhatsApp</option>
+              </select>
+            </div>
+
+            <div class="form-field full">
+              <label for="care-type">Type of Care Needed *</label>
+              <select id="care-type" required>
+                <option value="" disabled selected>Select care type</option>
+                <option>Short-Term Care Support</option>
+                <option>Long-Term Home Care</option>
+                <option>Pediatric Care</option>
+                <option>Senior Care</option>
+                <option>Post-Hospital Recovery</option>
+                <option>Specialized Nursing</option>
+                <option>Not Sure — Help Me Decide</option>
+              </select>
+              <span class="err-msg">Please select a care type.</span>
+            </div>
+
+            <div class="form-field full">
+              <label for="age-group">Patient Age Group *</label>
+              <select id="age-group" required>
+                <option value="" disabled selected>Select age group</option>
+                <option>Infant (0–2 years)</option>
+                <option>Child (3–12 years)</option>
+                <option>Teenager (13–17)</option>
+                <option>Adult (18–60)</option>
+                <option>Senior (60+)</option>
+              </select>
+              <span class="err-msg">Please select an age group.</span>
+            </div>
+
+            <div class="form-field">
+              <label for="start-date">Care Start Date Needed</label>
+              <input id="start-date" type="date" />
+            </div>
+            <div class="form-field">
+              <label for="duration">Estimated Duration</label>
+              <select id="duration">
+                <option value="" disabled selected>Select duration</option>
+                <option>1–2 weeks</option>
+                <option>1 month</option>
+                <option>3+ months</option>
+                <option>Ongoing</option>
+              </select>
+            </div>
+
+            <div class="form-field full">
+              <label for="location">Location / City *</label>
+              <input id="location" type="text" placeholder="e.g. Lagos" required />
+              <span class="err-msg">Please enter your location.</span>
+            </div>
+
+            <div class="form-field full">
+              <label for="notes">Any Special Requirements or Medical Notes</label>
+              <textarea id="notes" rows="4" placeholder="Tell us anything that would help us match you well..."></textarea>
+            </div>
+
+            <div class="form-field full">
+              <label for="hear">How Did You Hear About Us?</label>
+              <select id="hear">
+                <option value="" disabled selected>Select an option</option>
+                <option>Google Search</option>
+                <option>Social Media</option>
+                <option>Referral</option>
+                <option>Healthcare Provider</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-consent">
+              <input id="consent" type="checkbox" required />
+              <label for="consent">I agree to be contacted regarding my care request.</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit">Send My Care Request →</button>
+        </form>
+
+        <!-- SUCCESS STATE -->
+        <div class="form-card form-success" id="form-success" style="margin-top:0;">
+          <div class="check">✔</div>
+          <h2>Thank You, <span data-name>there</span>!</h2>
+          <p>Your request has been received. Our team will contact you within 24 hours to discuss your care options.</p>
+        </div>
+      </div>
+
+      <!-- RIGHT: INFO PANEL -->
+      <aside class="info-panel" data-aos="fade-up" data-aos-delay="120">
+        <span class="section-label">Talk to Us</span>
+        <h3>We're here to help</h3>
+
+        <div class="info-card">
+          <span class="ic">📞</span>
+          <div>
+            <h4>Phone</h4>
+            <a href="tel:+2348000000000">+234 800 000 0000</a>
+            <p>Available: Mon–Sat, 8am–7pm</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="ic">✉️</span>
+          <div>
+            <h4>Email</h4>
+            <a href="mailto:hello@chinettcare.com">hello@chinettcare.com</a>
+            <p>Response within 4 hours</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="ic">💬</span>
+          <div>
+            <h4>WhatsApp</h4>
+            <p>Chat with us directly</p>
+            <a href="https://wa.me/2348000000000" target="_blank" rel="noopener" class="btn btn-secondary wa-btn">Open WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="ic">📍</span>
+          <div>
+            <h4>Office Address</h4>
+            <p>12 Care Avenue, Victoria Island<br>Lagos, Nigeria</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <span class="ic">🕐</span>
+          <div>
+            <h4>Office Hours</h4>
+            <p>Monday – Friday: 8:00am – 6:00pm<br>Saturday: 9:00am – 3:00pm<br>Sunday: Emergency inquiries only</p>
+          </div>
+        </div>
+
+        <div class="emergency-box">
+          <h4>⚠️ Need urgent care?</h4>
+          <p>Call our emergency line:</p>
+          <div class="enum"><a href="tel:+2348111111111">+234 811 111 1111</a></div>
+          <p>Available 24/7 for critical situations.</p>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <section class="map-section">
+    <div class="container">
+      <span class="section-label">Find Us Here</span>
+      <div class="map-wrap" data-aos="fade-up">
+        <iframe
+          src="https://www.google.com/maps?q=Victoria+Island,+Lagos,+Nigeria&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Chinett Health Care location"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ALTERNATIVE CONTACT ============ -->
+  <section class="section alt-contact">
+    <div class="container text-center">
+      <span class="section-label" data-aos="fade-up">More Ways to Reach Us</span>
+      <h2 class="section-title" data-aos="fade-up">Prefer Another Way to Connect?</h2>
+      <hr class="divider-gold" />
+
+      <div class="alt-grid">
+        <div class="alt-card" data-aos="fade-up">
+          <div class="a-icon">📞</div>
+          <h3>Call Us</h3>
+          <p>Prefer to talk? Speak directly with our care advisors today.</p>
+          <a href="tel:+2348000000000" class="btn btn-primary">Call Now</a>
+        </div>
+        <div class="alt-card" data-aos="fade-up" data-aos-delay="60">
+          <div class="a-icon">✉️</div>
+          <h3>Email Us</h3>
+          <p>Send a detailed message and we'll respond within 4 business hours.</p>
+          <a href="mailto:hello@chinettcare.com" class="btn btn-primary">Send Email</a>
+        </div>
+        <div class="alt-card" data-aos="fade-up" data-aos-delay="120">
+          <div class="a-icon">💬</div>
+          <h3>Message Us</h3>
+          <p>Quick questions? Message us on WhatsApp for a fast response.</p>
+          <a href="https://wa.me/2348000000000" target="_blank" rel="noopener" class="btn btn-primary">Chat on WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL REASSURANCE ============ -->
+  <section class="section reassurance" id="phone">
+    <div class="container" data-aos="fade-up">
+      <h2>"You don't have to navigate this alone."</h2>
+      <p>Hundreds of families have trusted us to find the right care at the right time. We'd be honored to help yours.</p>
+      <a href="#request-form" class="btn btn-gold">Make Your Request Now →</a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo-img" src="chinett-logo.jpeg" alt="Chinett HealthCare Inc." />
+          <p class="footer-tagline">"Connecting the right nurse to the right patient at the right time."</p>
+          <div class="social">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6V21H21v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H13z"/></svg></a>
+            <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-1-.3-1.6-.6-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.4 2.6 1.6.3.1.5.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="services.html#who-we-serve">Who We Serve</a></li>
+            <li><a href="about.html#why-us">Why Us</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#short-term">Short-Term Care</a></li>
+            <li><a href="services.html#long-term">Long-Term Care</a></li>
+            <li><a href="services.html#pediatric">Pediatric</a></li>
+            <li><a href="services.html#senior">Senior Care</a></li>
+            <li><a href="services.html#recovery">Post-Recovery</a></li>
+            <li><a href="services.html#specialized">Specialized Nursing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li>📞 <a href="tel:+2348000000000">+234 800 000 0000</a></li>
+            <li>✉️ <a href="mailto:hello@chinettcare.com">hello@chinettcare.com</a></li>
+            <li>📍 Lagos, Nigeria</li>
+            <li>🕐 Mon–Sat, 8am – 8pm · 24/7 Care Line</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Chinett Health Care. All Rights Reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

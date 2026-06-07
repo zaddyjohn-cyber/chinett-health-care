@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chinett Health Care — Connecting the Right Nurse to the Right Patient</title>
+  <meta name="description" content="Chinett Health Care matches individuals and families with verified, compassionate nursing professionals — short-term, long-term, pediatric, senior, post-hospital and specialized care." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- AOS animations -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo" aria-label="Chinett HealthCare Inc. — Home">
+        <img src="chinett-logo.jpeg" alt="Chinett HealthCare Inc." />
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="services.html#who-we-serve">Who We Serve</a></li>
+        <li><a href="about.html#why-us">Why Us</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="contact.html#request-form" class="btn btn-primary">Request a Nurse</a>
+      </div>
+
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile overlay nav -->
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="services.html#who-we-serve">Who We Serve</a>
+    <a href="about.html#why-us">Why Us</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html#request-form" class="btn btn-primary">Request a Nurse</a>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="container">
+      <div class="hero-content" data-aos="fade-up">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.4-6.3-4.6L5.7 21 8 13.8 2 9.4h7.6z"/></svg>
+          Trusted Healthcare Matching
+        </div>
+
+        <h1>Connecting the Right Nurse<br>to the Right Patient —<br><em>at the Right Time.</em></h1>
+
+        <p class="hero-sub">Compassionate, professional healthcare for individuals and families at every stage of life. Because everyone deserves exceptional care.</p>
+
+        <div class="hero-ctas">
+          <a href="contact.html#request-form" class="btn btn-gold">Find a Care Professional</a>
+          <a href="#services" class="btn btn-ghost">Explore Our Services</a>
+        </div>
+
+        <div class="hero-trust">
+          <span>Verified Professionals</span>
+          <span>All Ages Served</span>
+          <span>Screened &amp; Vetted</span>
+          <span>24/7 Support</span>
+        </div>
+      </div>
+
+      <!-- Quick request card (desktop) -->
+      <div class="hero-card" data-aos="fade-up" data-aos-delay="150">
+        <form class="quick-card" id="quick-care-form">
+          <h3>Get Matched Today</h3>
+          <p>Tell us a little and we'll be in touch quickly.</p>
+          <label for="qc-name">Full Name</label>
+          <input id="qc-name" type="text" placeholder="Your name" required />
+          <label for="qc-phone">Phone</label>
+          <input id="qc-phone" type="tel" placeholder="Phone number" required />
+          <label for="qc-type">Care Type</label>
+          <select id="qc-type" required>
+            <option value="" disabled selected>Select care type</option>
+            <option>Short-Term Care</option>
+            <option>Long-Term Home Care</option>
+            <option>Pediatric Care</option>
+            <option>Senior Care</option>
+            <option>Post-Hospital Recovery</option>
+            <option>Specialized Nursing</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Request a Nurse</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" data-target="#stats" aria-label="Scroll down">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </header>
+
+  <!-- ============ STATS ============ -->
+  <section class="stats" id="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat" data-aos="fade-up">
+          <div class="stat-num" data-target="500" data-suffix="+">0</div>
+          <div class="stat-label">Verified Professionals</div>
+        </div>
+        <div class="stat" data-aos="fade-up" data-aos-delay="60">
+          <div class="stat-num" data-target="1200" data-suffix="+">0</div>
+          <div class="stat-label">Families Served</div>
+        </div>
+        <div class="stat" data-aos="fade-up" data-aos-delay="120">
+          <div class="stat-num" data-target="6">0</div>
+          <div class="stat-label">Care Specializations</div>
+        </div>
+        <div class="stat" data-aos="fade-up" data-aos-delay="180">
+          <div class="stat-num" data-target="100" data-suffix="%">0</div>
+          <div class="stat-label">Screened &amp; Vetted</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MISSION ============ -->
+  <section class="section mission">
+    <div class="container">
+      <div class="mission-text" data-aos="fade-up">
+        <span class="section-label">Our Mission</span>
+        <blockquote class="mission-quote">"Healthcare is not one-size-fits-all. Every individual deserves care that is as unique as they are."</blockquote>
+        <p class="mission-body">At Chinett Health Care, we believe great care begins with great people. We take the time to understand each client's medical, personal, and emotional needs — then carefully match them with qualified professionals who bring both clinical expertise and genuine human connection.</p>
+        <a href="about.html" class="text-link">Learn Our Story</a>
+      </div>
+      <div class="mission-img" data-aos="fade-up" data-aos-delay="120">
+        <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=900&q=80" alt="Nurse caring for a patient" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section services" id="services">
+    <div class="container text-center">
+      <span class="section-label" data-aos="fade-up">What We Offer</span>
+      <h2 class="section-title" data-aos="fade-up">Comprehensive Care for Every Stage of Life</h2>
+      <hr class="divider-gold" />
+      <p class="section-subtitle" data-aos="fade-up">From pediatric support to senior companionship — we match you with the right professional for your exact needs.</p>
+
+      <div class="services-grid">
+        <article class="service-card" data-aos="fade-up">
+          <div class="service-icon">🏥</div>
+          <h3>Short-Term Care Support</h3>
+          <p>Temporary nursing assistance for acute needs, recovery periods, or family relief.</p>
+          <a href="services.html#short-term" class="text-link">Learn More</a>
+        </article>
+        <article class="service-card" data-aos="fade-up" data-aos-delay="60">
+          <div class="service-icon">🏠</div>
+          <h3>Long-Term Home Care</h3>
+          <p>Consistent, ongoing in-home nursing for chronic conditions and daily health management.</p>
+          <a href="services.html#long-term" class="text-link">Learn More</a>
+        </article>
+        <article class="service-card" data-aos="fade-up" data-aos-delay="120">
+          <div class="service-icon">👶</div>
+          <h3>Pediatric Care</h3>
+          <p>Specialized attention for children requiring focused medical and developmental support.</p>
+          <a href="services.html#pediatric" class="text-link">Learn More</a>
+        </article>
+        <article class="service-card" data-aos="fade-up">
+          <div class="service-icon">🧓</div>
+          <h3>Senior Care</h3>
+          <p>Compassionate support that helps seniors maintain independence and quality of life.</p>
+          <a href="services.html#senior" class="text-link">Learn More</a>
+        </article>
+        <article class="service-card" data-aos="fade-up" data-aos-delay="60">
+          <div class="service-icon">🏋️</div>
+          <h3>Post-Hospital Recovery</h3>
+          <p>Structured at-home recovery assistance following surgery, illness, or hospital discharge.</p>
+          <a href="services.html#recovery" class="text-link">Learn More</a>
+        </article>
+        <article class="service-card" data-aos="fade-up" data-aos-delay="120">
+          <div class="service-icon">💊</div>
+          <h3>Specialized Nursing Services</h3>
+          <p>Advanced clinical care for complex medical needs requiring specialized expertise.</p>
+          <a href="services.html#specialized" class="text-link">Learn More</a>
+        </article>
+      </div>
+
+      <div style="margin-top: var(--sp-6);" data-aos="fade-up">
+        <a href="services.html" class="btn btn-secondary">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHO WE SERVE ============ -->
+  <section class="section audience" id="who-we-serve">
+    <div class="container text-center">
+      <span class="section-label" data-aos="fade-up">Who We Serve</span>
+      <h2 class="section-title" data-aos="fade-up">Serving Every Stage of Life</h2>
+      <hr class="divider-gold" />
+
+      <div class="audience-grid">
+        <article class="audience-card" data-aos="fade-up">
+          <img src="https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&w=700&q=80" alt="Child receiving care" />
+          <div class="audience-bar teal"></div>
+          <div class="audience-body">
+            <h3>Children</h3>
+            <p>Specialized pediatric care &amp; attention tailored to a child's growth and wellbeing.</p>
+            <a href="services.html#pediatric" class="text-link">Learn More</a>
+          </div>
+        </article>
+        <article class="audience-card" data-aos="fade-up" data-aos-delay="60">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=700&q=80" alt="Adult patient with nurse" />
+          <div class="audience-bar gold"></div>
+          <div class="audience-body">
+            <h3>Adults</h3>
+            <p>Condition management &amp; recovery support for busy lives and complex needs.</p>
+            <a href="services.html#long-term" class="text-link">Learn More</a>
+          </div>
+        </article>
+        <article class="audience-card" data-aos="fade-up" data-aos-delay="120">
+          <img src="https://images.unsplash.com/photo-1576765608866-5b51046452be?auto=format&fit=crop&w=700&q=80" alt="Senior with caregiver" />
+          <div class="audience-bar green"></div>
+          <div class="audience-body">
+            <h3>Seniors</h3>
+            <p>Compassionate independence support that preserves dignity and quality of life.</p>
+            <a href="services.html#senior" class="text-link">Learn More</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIAL ============ -->
+  <section class="section testimonial">
+    <div class="container">
+      <span class="quote-mark">&ldquo;</span>
+
+      <div class="testimonial-slide active">
+        <p class="testimonial-text">Chinett Health Care changed everything for our family. The nurse they matched us with for my mother was not just clinically excellent — she genuinely cared. We felt supported every step of the way.</p>
+        <p class="testimonial-author">— Mrs. Adaeze O., Senior Care Client · Lagos, Nigeria</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-slide">
+        <p class="testimonial-text">After my surgery I dreaded recovering alone. Chinett matched me with a recovery nurse who was patient, skilled and kind. I healed faster than I imagined possible.</p>
+        <p class="testimonial-author">— Mr. Emeka N., Post-Hospital Recovery Client · Abuja, Nigeria</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <div class="testimonial-slide">
+        <p class="testimonial-text">Finding pediatric care we could trust felt impossible until Chinett. Our son's nurse understood his needs completely. As parents, that peace of mind is priceless.</p>
+        <p class="testimonial-author">— The Okafor Family, Pediatric Care Clients · Port Harcourt, Nigeria</p>
+        <div class="stars">★★★★★</div>
+      </div>
+
+      <div class="testimonial-dots">
+        <button class="dot active" aria-label="Testimonial 1"></button>
+        <button class="dot" aria-label="Testimonial 2"></button>
+        <button class="dot" aria-label="Testimonial 3"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BANNER ============ -->
+  <section class="cta-banner">
+    <div class="container" data-aos="fade-up">
+      <h2>Ready to Find the Right Care?</h2>
+      <p>Let us connect you with a verified professional who fits your needs, your values, and your life.</p>
+      <div class="btn-row">
+        <a href="contact.html#request-form" class="btn btn-teal-fill">Request a Nurse</a>
+        <a href="contact.html#phone" class="btn btn-teal-outline">Speak with Us Today</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo-img" src="chinett-logo.jpeg" alt="Chinett HealthCare Inc." />
+          <p class="footer-tagline">"Connecting the right nurse to the right patient at the right time."</p>
+          <div class="social">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 0 5 8.5a2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-.9 1.8-1.9 3.7-1.9 4 0 4.7 2.6 4.7 6V21H21v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21H13z"/></svg></a>
+            <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.4A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1-.4-.1-1-.3-1.6-.6-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-2 .9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.4 2.6 1.6.3.1.5.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l1.8.9c.3.1.4.2.5.3.1.2.1.7-.1 1.3z"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="services.html#who-we-serve">Who We Serve</a></li>
+            <li><a href="about.html#why-us">Why Us</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html#short-term">Short-Term Care</a></li>
+            <li><a href="services.html#long-term">Long-Term Care</a></li>
+            <li><a href="services.html#pediatric">Pediatric</a></li>
+            <li><a href="services.html#senior">Senior Care</a></li>
+            <li><a href="services.html#recovery">Post-Recovery</a></li>
+            <li><a href="services.html#specialized">Specialized Nursing</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li>📞 <a href="tel:+2348000000000">+234 800 000 0000</a></li>
+            <li>✉️ <a href="mailto:hello@chinettcare.com">hello@chinettcare.com</a></li>
+            <li>📍 Lagos, Nigeria</li>
+            <li>🕐 Mon–Sat, 8am – 8pm · 24/7 Care Line</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 Chinett Health Care. All Rights Reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
