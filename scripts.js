@@ -204,10 +204,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---- 10. Lazy-load the duo-band videos: desktop only, when in view ---- */
+  /* ---- 10. Lazy-load the duo-band videos (all devices), when in view ---- */
   var duoBand = document.querySelector('.duo-band');
-  var isDesktop = window.matchMedia && window.matchMedia('(min-width: 769px)').matches;
-  if (duoBand && isDesktop) {
+  if (duoBand) {
     var startVideos = function () {
       duoBand.querySelectorAll('.duo-video').forEach(function (v) {
         var s = v.querySelector('source[data-src]');
