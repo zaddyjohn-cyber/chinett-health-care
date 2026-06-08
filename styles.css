@@ -380,16 +380,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   margin-top: var(--sp-6);
 }
 .service-card {
-  background: #fff; border-radius: var(--r-card); padding: var(--sp-4);
+  background: #fff; border-radius: var(--r-card); overflow: hidden;
   box-shadow: var(--shadow-card); border-top: 3px solid transparent;
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); border-top-color: var(--color-accent); }
+.service-card-img { width: 100%; height: 190px; object-fit: cover; display: block; }
+.service-card-body { padding: var(--sp-4); }
 .service-icon {
   width: 56px; height: 56px; border-radius: 50%;
   background: rgba(28,130,196,0.10); color: var(--color-primary);
   display: flex; align-items: center; justify-content: center;
-  font-size: 26px; margin-bottom: var(--sp-3);
+  font-size: 26px; margin: -52px auto var(--sp-3); position: relative; z-index: 1;
+  border: 3px solid #fff; box-shadow: var(--shadow-card);
 }
 .service-card h3 { font-family: var(--font-body); font-size: 19px; font-weight: 700; color: var(--color-text-dark); margin-bottom: 10px; }
 .service-card p { font-size: 15px; color: var(--color-text-body); margin-bottom: var(--sp-2); }
