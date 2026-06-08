@@ -204,4 +204,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---- 10. Lazy-load the duo-band videos: desktop only, when in view ---- */
+  var duoBand = document.querySelector('.duo-band');
+  var isDesktop = window.matchMedia && window.matchMedia('(min-width: 769px)').matches;
+  if (duoBand && isDesktop) {
+    var startVideos = function () {
+      duoBand.querySelectorAll('.duo-video').forEach(function (v) {
+        var s = v.querySelector('source[data-src]');
+        if (s && !s.src) {
+          s.src = s.getAttribute('data-src');
+          v.load();
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        }
+      });
+    };
+    if ('IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { startVideos(); vio.disconnect(); }
+        });
+      }, { rootMargin: '300px' });
+      vio.observe(duoBand);
+    } else {
+      startVideos();
+    }
+  }
+
 });
