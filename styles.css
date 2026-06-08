@@ -433,12 +433,23 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 .duo-band { background: #fff; padding: var(--sp-5) 0 var(--sp-6); }
 .duo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
 .duo-panel {
-  position: relative; overflow: hidden; border-radius: var(--r-card);
+  position: relative; overflow: hidden; isolation: isolate; border-radius: var(--r-card);
   padding: var(--sp-5); min-height: 250px; color: #fff;
   display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
   box-shadow: var(--shadow-soft);
 }
 .duo-panel > * { position: relative; z-index: 3; }
+/* Background video + readability shade (these override the z-index:3 above) */
+.duo-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 50%; transform: scale(1.04);
+  z-index: 0; pointer-events: none;
+}
+.duo-shade { position: absolute; inset: 0; z-index: 1; }
+.duo-panel.pitch .duo-shade { background: linear-gradient(180deg, rgba(7,20,32,0.50), rgba(7,20,32,0.68)); }
+.duo-panel.intro .duo-shade { background: linear-gradient(180deg, rgba(9,16,32,0.40), rgba(9,16,32,0.62)); }
+/* recolour the shared clip into a warm, colourful gradient for the intro panel */
+.duo-panel.intro .duo-video { filter: hue-rotate(125deg) saturate(1.55) brightness(1.05); object-position: 28% 60%; transform: scale(1.12); }
 .duo-eyebrow { font-family: var(--font-label); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: var(--sp-2); }
 .duo-rotator { position: relative; width: 100%; height: 78px; margin-bottom: var(--sp-2); }
 .duo-rotator span {
@@ -452,7 +463,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 /* Left panel: flowing glowing light streams on dark */
 .duo-panel.pitch { background: #0a2231; }
 .duo-panel.pitch::before {
-  content: ''; position: absolute; inset: -45%; z-index: 0;
+  content: ''; position: absolute; inset: -45%; z-index: -1;
   background:
     radial-gradient(closest-side, rgba(30,130,196,0.65), transparent 72%) 12% 32%/55% 65% no-repeat,
     radial-gradient(closest-side, rgba(20,163,163,0.6),  transparent 72%) 84% 60%/60% 70% no-repeat,
@@ -461,7 +472,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   animation: streamMove 10s ease-in-out infinite alternate;
 }
 .duo-panel.pitch::after {
-  content: ''; position: absolute; inset: 0; z-index: 1; opacity: 0.5;
+  content: ''; position: absolute; inset: 0; z-index: -1; opacity: 0.5;
   background: repeating-linear-gradient(118deg, transparent 0 13px, rgba(150,210,255,0.08) 13px 15px);
   animation: streamSlide 7s linear infinite;
 }
@@ -474,7 +485,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   background-size: 320% 320%;
   animation: gradShift 12s ease infinite;
 }
-.duo-panel.intro::before { content: ''; position: absolute; inset: 0; z-index: 0; background: rgba(8,18,32,0.30); }
+.duo-panel.intro::before { content: ''; position: absolute; inset: 0; z-index: -1; background: rgba(8,18,32,0.30); }
 @keyframes gradShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
 /* Rotating text (each ~10s loop) */
@@ -980,4 +991,5 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   .tcards { columns: 1; }
   .form-grid { grid-template-columns: 1fr; }
   .duo-grid { grid-template-columns: 1fr; }
+  .duo-video { display: none; } /* fall back to lightweight CSS animation on phones */
 }

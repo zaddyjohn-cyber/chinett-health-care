@@ -4,6 +4,8 @@
 # Reference media / recordings (not part of the site)
 *.mp4
 *.mov
+# ...but DO ship the panel background videos
+!assets/video/*.mp4
 
 # OS files
 Thumbs.db
