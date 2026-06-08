@@ -15,17 +15,19 @@
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---- diverse nurse illustrations (original artwork, copyright-free) ----
-  // Stored locally in assets/images/. Swap these for real photos any time.
+  // ---- real nurse/clinician photos, self-hosted (free Unsplash license) ----
+  // Stored locally in assets/images/. Swap for your own staff photos any time.
   var NURSE_PHOTOS = [
-    'assets/images/nurse-1.svg',
-    'assets/images/nurse-2.svg',
-    'assets/images/nurse-3.svg',
-    'assets/images/nurse-4.svg',
-    'assets/images/nurse-5.svg',
-    'assets/images/nurse-6.svg',
-    'assets/images/nurse-7.svg',
-    'assets/images/nurse-8.svg'
+    'assets/images/photo-1.jpg',
+    'assets/images/photo-2.jpg',
+    'assets/images/photo-3.jpg',
+    'assets/images/photo-4.jpg',
+    'assets/images/photo-5.jpg',
+    'assets/images/photo-6.jpg',
+    'assets/images/photo-7.jpg',
+    'assets/images/photo-8.jpg',
+    'assets/images/photo-9.jpg',
+    'assets/images/photo-10.jpg'
   ];
 
   var imgs = NURSE_PHOTOS.map(function (u) {
