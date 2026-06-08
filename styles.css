@@ -64,6 +64,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 
 .container { width: min(1200px, 92%); margin-inline: auto; }
 
+/* Accessibility: skip to content */
+.skip-link {
+  position: absolute; left: 8px; top: -60px; z-index: 2000;
+  background: var(--color-primary-dark); color: #fff;
+  padding: 10px 18px; border-radius: 0 0 10px 10px;
+  font-family: var(--font-label); font-size: 13px; letter-spacing: 0.5px;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 0; outline: 2px solid var(--color-accent); }
+
 /* ---------- 3. SHARED COMPONENTS ---------- */
 .section { padding: var(--sp-7) 0; }
 

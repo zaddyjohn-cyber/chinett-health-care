@@ -1,0 +1,13 @@
+{
+  "name": "Chinett HealthCare Inc.",
+  "short_name": "Chinett",
+  "description": "Compassionate in-home nursing and care matching in Baltimore, MD.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0F2A3D",
+  "theme_color": "#0F2A3D",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
