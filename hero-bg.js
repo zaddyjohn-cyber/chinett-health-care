@@ -12,7 +12,7 @@
   var ctx = canvas.getContext('2d');
   if (!ctx) return;
   var host = canvas.parentElement; // .hero-orb
-  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var DPR = Math.min(window.devicePixelRatio || 1, 1.5);
 
   // ---- real nurse/clinician photos, self-hosted (free Unsplash license) ----
   // Stored locally in assets/images/. Swap for your own staff photos any time.
@@ -135,9 +135,6 @@
 
       ctx.save();
       ctx.globalAlpha = alpha;
-      // soft drop shadow for depth
-      ctx.shadowColor = 'rgba(15,30,40,' + (0.35 * depth2) + ')';
-      ctx.shadowBlur = 14 * pp.s; ctx.shadowOffsetY = 6 * pp.s;
       roundRect(x, y, size, size, size * 0.16);
       ctx.clip();
       if (img.complete && img.naturalWidth) {
