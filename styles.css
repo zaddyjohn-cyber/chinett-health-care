@@ -301,8 +301,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 /* Hero brand logo (replaces quick-request card) */
 .hero-logo { display: flex; justify-content: center; align-items: center; }
 .hero-logo img {
-  max-width: 380px; width: 100%; border-radius: 16px; background: #000;
+  max-width: 480px; width: 100%; border-radius: 18px; background: #000;
   box-shadow: 0 24px 60px rgba(15,42,61,0.45);
+  animation: breathe 4.5s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 22px 55px rgba(15,42,61,0.45); }
+  50%      { transform: scale(1.05); box-shadow: 0 34px 80px rgba(20,163,163,0.45); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo img { animation: none; }
 }
 
 /* Scroll indicator */
