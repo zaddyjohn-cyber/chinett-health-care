@@ -11,17 +11,19 @@
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var W, H, CX, CY, R, focal;
-  function resize() {
-    W = host.clientWidth; H = host.clientHeight;
-    canvas.width = Math.round(W * DPR);
-    canvas.height = Math.round(H * DPR);
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
+  var W = 0, H = 0, CX, CY, R, focal;
+  // Square orb sized from the container WIDTH (height is driven by the canvas
+  // itself via CSS height:auto, so it never depends on a collapsing parent height).
+  function measure() {
+    var w = host.clientWidth || 420;
+    if (w === W) return;
+    W = H = w;
+    canvas.width = Math.round(w * DPR);
+    canvas.height = Math.round(w * DPR);
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     CX = W * 0.5;
     CY = H * 0.5;
-    R = Math.min(W, H) * 0.44;
+    R = W * 0.44;
     focal = R * 3.4;
   }
 
@@ -151,6 +153,8 @@
 
   var t = 0;
   function frame() {
+    measure();                 // pick up correct size once layout settles
+    if (!W) { requestAnimationFrame(frame); return; }
     t += 1;
     rotY = t * 0.0022;
     rotX = -0.18 + Math.sin(t * 0.0014) * 0.12;
@@ -168,7 +172,8 @@
     if (!reduce) requestAnimationFrame(frame);
   }
 
-  resize();
-  window.addEventListener('resize', function () { resize(); if (reduce) { compute(); frame(); } }, { passive: true });
+  measure();
+  window.addEventListener('resize', function () { measure(); if (reduce) frame(); }, { passive: true });
+  window.addEventListener('load', measure);
   frame();
 })();

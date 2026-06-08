@@ -250,10 +250,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 }
 /* Fiery 3D wire-sphere holding the logo, in the right column */
 .hero-orb {
-  position: relative; width: 100%; max-width: 500px; margin: 0 auto;
-  aspect-ratio: 1 / 1;
+  position: relative; width: min(100%, 480px); margin: 0 auto;
 }
-.hero-orb canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+/* canvas is square (buffer set in JS); height:auto keeps it square and gives
+   the container a real height — no reliance on CSS aspect-ratio in a grid cell */
+.hero-orb canvas { display: block; width: 100%; height: auto; }
 .hero-orb-logo {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 58%; border-radius: 10px; background: #000; z-index: 2;
