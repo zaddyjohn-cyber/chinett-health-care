@@ -240,16 +240,17 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   display: flex; align-items: center;
   overflow: hidden;
   color: #fff;
+  background: radial-gradient(circle at 68% 48%, #143a52 0%, #0c2536 55%, #07151f 100%);
 }
-.hero-bg {
+.hero-canvas {
   position: absolute; inset: 0; z-index: -2;
-  background: url('https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-  animation: kenburns 18s ease-in-out infinite alternate;
+  width: 100%; height: 100%; display: block;
 }
-@keyframes kenburns { from { transform: scale(1); } to { transform: scale(1.06); } }
 .hero-overlay {
   position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(135deg, rgba(15,42,61,0.88) 0%, rgba(28,130,196,0.55) 100%);
+  background:
+    linear-gradient(90deg, rgba(7,21,31,0.9) 0%, rgba(7,21,31,0.55) 40%, rgba(7,21,31,0.08) 72%, rgba(7,21,31,0) 100%),
+    linear-gradient(0deg, rgba(7,21,31,0.65) 0%, transparent 35%);
 }
 
 .hero .container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--sp-6); align-items: center; padding-top: var(--nav-h); }
