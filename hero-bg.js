@@ -1,19 +1,44 @@
 /* ============================================================
-   CHINETT — hero background: tangled wire sphere with fiery core.
+   CHINETT — hero: rotating 3D sphere of diverse nurse photos.
    Pure Canvas 2D (no WebGL) so it renders everywhere. index.html only.
+   ------------------------------------------------------------
+   To use your OWN nurse photos, just replace the URLs in NURSE_PHOTOS
+   below (square images work best). Local paths like
+   'assets/images/nurse1.jpg' also work.
    ============================================================ */
 (function () {
   var canvas = document.getElementById('hero-canvas');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
   if (!ctx) return;
-  var host = canvas.parentElement; // .hero
+  var host = canvas.parentElement; // .hero-orb
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var W = 0, H = 0, CX, CY, R, focal;
-  // Square orb sized from the container WIDTH (height is driven by the canvas
-  // itself via CSS height:auto, so it never depends on a collapsing parent height).
+  // ---- EDIT ME: diverse nurses in scrubs/gowns (placeholders) ----
+  var NURSE_PHOTOS = [
+    'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1584516150909-c43483ee7932?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=400&h=400&q=70',
+    'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=400&h=400&q=70'
+  ];
+
+  var imgs = NURSE_PHOTOS.map(function (u) {
+    var im = new Image();
+    im.crossOrigin = 'anonymous';
+    im.referrerPolicy = 'no-referrer';
+    im.src = u;
+    return im;
+  });
+
+  // ---- sizing: square canvas driven by container width ----
+  var W = 0, H = 0, CX, CY, R, focal, tile;
   function measure() {
     var w = host.clientWidth || 420;
     if (w === W) return;
@@ -21,156 +46,125 @@
     canvas.width = Math.round(w * DPR);
     canvas.height = Math.round(w * DPR);
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    CX = W * 0.5;
-    CY = H * 0.5;
-    R = W * 0.44;
-    focal = R * 3.4;
+    CX = W * 0.5; CY = H * 0.5;
+    R = W * 0.36;
+    focal = R * 3.6;
+    tile = W * 0.2;
   }
 
-  // ---- pre-rendered glow sprites (fast drawImage instead of per-frame gradients) ----
-  function sprite(size, stops) {
-    var c = document.createElement('canvas'); c.width = c.height = size;
-    var x = c.getContext('2d');
-    var g = x.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-    for (var i = 0; i < stops.length; i++) g.addColorStop(stops[i][0], stops[i][1]);
-    x.fillStyle = g; x.fillRect(0, 0, size, size);
-    return c;
-  }
-  var emberSprite = sprite(64, [
-    [0, 'rgba(255,250,235,1)'], [0.25, 'rgba(255,185,85,1)'],
-    [0.55, 'rgba(245,120,28,0.6)'], [1, 'rgba(245,120,28,0)']
-  ]);
-  var coreSprite = sprite(320, [
-    [0, 'rgba(255,248,228,1)'], [0.14, 'rgba(255,180,80,0.95)'],
-    [0.38, 'rgba(240,110,25,0.55)'], [0.7, 'rgba(220,80,15,0.18)'], [1, 'rgba(220,80,15,0)']
-  ]);
-
-  // ---- build a tangled unit sphere ----
-  var N = 360;
-  var base = [];          // unit vectors {x,y,z}
-  var ember = [];         // boolean per node
+  // ---- nodes on a sphere (fibonacci), each carries a photo ----
+  var M = 14;
+  var nodes = [];
   var golden = Math.PI * (3 - Math.sqrt(5));
-  for (var i = 0; i < N; i++) {
-    var y = 1 - (i / (N - 1)) * 2;
+  for (var i = 0; i < M; i++) {
+    var y = 1 - (i / (M - 1)) * 2;
     var rad = Math.sqrt(Math.max(0, 1 - y * y));
     var th = golden * i;
-    // jitter the radius so the mesh looks crumpled rather than a clean ball
-    var jr = 0.82 + Math.random() * 0.30;
-    base.push({ x: Math.cos(th) * rad * jr, y: y * jr, z: Math.sin(th) * rad * jr });
-    ember.push(Math.random() < 0.22);
+    nodes.push({ x: Math.cos(th) * rad, y: y, z: Math.sin(th) * rad, img: imgs[i % imgs.length] });
   }
-
-  // ---- neighbour pairs (k nearest) + a few long tangling strands ----
-  var pairs = [];
-  var seen = {};
-  function addPair(a, b) {
-    var k = a < b ? a + '_' + b : b + '_' + a;
-    if (seen[k]) return; seen[k] = 1; pairs.push([a, b]);
-  }
-  for (i = 0; i < N; i++) {
-    var dists = [];
-    for (var j = 0; j < N; j++) {
-      if (j === i) continue;
-      var dx = base[i].x - base[j].x, dy = base[i].y - base[j].y, dz = base[i].z - base[j].z;
-      dists.push([dx * dx + dy * dy + dz * dz, j]);
+  // faint connecting strands (each node to its 2 nearest)
+  var pairs = [], seen = {};
+  for (i = 0; i < M; i++) {
+    var ds = [];
+    for (var j = 0; j < M; j++) { if (j === i) continue;
+      var dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y, dz = nodes[i].z - nodes[j].z;
+      ds.push([dx * dx + dy * dy + dz * dz, j]);
     }
-    dists.sort(function (p, q) { return p[0] - q[0]; });
-    for (var n = 0; n < 4; n++) addPair(i, dists[n][1]);
+    ds.sort(function (a, b) { return a[0] - b[0]; });
+    for (var n = 0; n < 2; n++) { var k = Math.min(i, ds[n][1]) + '_' + Math.max(i, ds[n][1]); if (!seen[k]) { seen[k] = 1; pairs.push([i, ds[n][1]]); } }
   }
-  for (i = 0; i < 55; i++) addPair((Math.random() * N) | 0, (Math.random() * N) | 0);
 
-  // ---- math helpers ----
-  var rotY = 0, rotX = -0.2;
+  var rotY = 0, rotX = -0.12;
   function project(p) {
-    // rotate Y then X
     var cy = Math.cos(rotY), sy = Math.sin(rotY);
-    var x1 = p.x * cy - p.z * sy;
-    var z1 = p.x * sy + p.z * cy;
+    var x1 = p.x * cy - p.z * sy, z1 = p.x * sy + p.z * cy;
     var cx = Math.cos(rotX), sx = Math.sin(rotX);
-    var y1 = p.y * cx - z1 * sx;
-    var z2 = p.y * sx + z1 * cx;
-    var zr = z2 * R;
-    var s = focal / (focal - zr);
+    var y1 = p.y * cx - z1 * sx, z2 = p.y * sx + z1 * cx;
+    var s = focal / (focal - z2 * R);
     return { x: CX + x1 * R * s, y: CY + y1 * R * s, z: z2, s: s };
   }
 
-  var P = new Array(N);
-  function compute() { for (var i = 0; i < N; i++) P[i] = project(base[i]); }
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
 
   function drawHalo() {
-    // soft dark backdrop behind the orb so dark wires + additive fire both pop on the light bg
-    var r = R * 1.9;
+    var r = R * 2.0;
     var g = ctx.createRadialGradient(CX, CY, 0, CX, CY, r);
-    g.addColorStop(0, 'rgba(22,24,28,0.55)');
-    g.addColorStop(0.5, 'rgba(22,24,28,0.32)');
-    g.addColorStop(1, 'rgba(22,24,28,0)');
+    g.addColorStop(0, 'rgba(18,22,28,0.18)');
+    g.addColorStop(0.6, 'rgba(18,22,28,0.08)');
+    g.addColorStop(1, 'rgba(18,22,28,0)');
     ctx.fillStyle = g;
     ctx.beginPath(); ctx.arc(CX, CY, r, 0, Math.PI * 2); ctx.fill();
   }
 
-  function drawLines(frontOnly) {
+  var P = new Array(M);
+  function frame() {
+    measure();
+    if (!W) { requestAnimationFrame(frame); return; }
+    rotYv();
+    for (var i = 0; i < M; i++) P[i] = project(nodes[i]);
+
+    ctx.clearRect(0, 0, W, H);
+    drawHalo();
+
+    // faint strands (behind)
+    ctx.lineWidth = 1;
     for (var p = 0; p < pairs.length; p++) {
       var a = P[pairs[p][0]], b = P[pairs[p][1]];
-      var za = a.z, zb = b.z, front = (za + zb) > 0;
-      if (front !== frontOnly) continue;
-      var depth = (za + zb) / 2;             // -1..1
-      var alpha = front ? 0.75 : 0.38;
-      alpha *= 0.7 + (depth + 1) * 0.18;
-      ctx.lineWidth = front ? 1.4 : 1.0;
-      ctx.strokeStyle = 'rgba(20,24,30,' + alpha.toFixed(3) + ')';
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      var depth = ((a.z + b.z) / 2 + 1) / 2;
+      ctx.strokeStyle = 'rgba(70,84,96,' + (0.10 + depth * 0.18).toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    }
+
+    // photo tiles, back-to-front
+    var order = [];
+    for (i = 0; i < M; i++) order.push(i);
+    order.sort(function (u, v) { return P[u].z - P[v].z; });
+
+    for (var o = 0; o < order.length; o++) {
+      var idx = order[o], pp = P[idx], img = nodes[idx].img;
+      var depth2 = (pp.z + 1) / 2;            // 0 back .. 1 front
+      var size = tile * pp.s;
+      var x = pp.x - size / 2, y = pp.y - size / 2;
+      var alpha = 0.32 + depth2 * 0.68;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      // soft drop shadow for depth
+      ctx.shadowColor = 'rgba(15,30,40,' + (0.35 * depth2) + ')';
+      ctx.shadowBlur = 14 * pp.s; ctx.shadowOffsetY = 6 * pp.s;
+      roundRect(x, y, size, size, size * 0.16);
+      ctx.clip();
+      if (img.complete && img.naturalWidth) {
+        ctx.drawImage(img, x, y, size, size);
+      } else {
+        ctx.fillStyle = '#1C82C4';
+        ctx.fillRect(x, y, size, size);
+      }
+      ctx.restore();
+
+      // crisp light border
+      ctx.save();
+      ctx.globalAlpha = 0.25 + depth2 * 0.5;
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+      roundRect(x, y, size, size, size * 0.16);
       ctx.stroke();
+      ctx.restore();
     }
-  }
-
-  function drawEmbers() {
-    ctx.globalCompositeOperation = 'lighter';
-    for (var i = 0; i < N; i++) {
-      if (!ember[i]) continue;
-      var p = P[i];
-      var depth = (p.z + 1) / 2;             // 0 back .. 1 front
-      var size = (10 + depth * 16) * p.s;
-      ctx.globalAlpha = 0.35 + depth * 0.55;
-      ctx.drawImage(emberSprite, p.x - size / 2, p.y - size / 2, size, size);
-    }
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
-  }
-
-  function drawCore(flick) {
-    ctx.globalCompositeOperation = 'lighter';
-    var r = R * 1.35;
-    ctx.globalAlpha = Math.min(1, flick * 1.0);
-    ctx.drawImage(coreSprite, CX - r, CY - r, r * 2, r * 2);
-    // tight hot center
-    var r2 = R * 0.55;
-    ctx.globalAlpha = 1;
-    ctx.drawImage(coreSprite, CX - r2, CY - r2, r2 * 2, r2 * 2);
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
-  }
-
-  var t = 0;
-  function frame() {
-    measure();                 // pick up correct size once layout settles
-    if (!W) { requestAnimationFrame(frame); return; }
-    t += 1;
-    rotY = t * 0.0022;
-    rotX = -0.18 + Math.sin(t * 0.0014) * 0.12;
-    compute();
-    ctx.clearRect(0, 0, W, H);
-
-    var flick = 0.85 + Math.sin(t * 0.07) * 0.07 + Math.sin(t * 0.21) * 0.03;
-
-    drawHalo();         // dark backdrop so the orb stands out on light bg
-    drawLines(false);   // back strands
-    drawCore(flick);    // fire glows from inside
-    drawLines(true);    // front strands occlude the glow -> caged fire
-    drawEmbers();       // glowing embers / sparks on top
 
     if (!reduce) requestAnimationFrame(frame);
   }
+
+  // rotation step (kept in a fn so reduced-motion can render one static frame)
+  function rotYv() { if (!reduce) { rotY += 0.0045; rotX = -0.12 + Math.sin(Date.now() * 0.0002) * 0.1; } }
 
   measure();
   window.addEventListener('resize', function () { measure(); if (reduce) frame(); }, { passive: true });
