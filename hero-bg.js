@@ -13,7 +13,6 @@
   if (!ctx) return;
   var host = canvas.parentElement; // .hero-orb
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---- real nurse/clinician photos, self-hosted (free Unsplash license) ----
   // Stored locally in assets/images/. Swap for your own staff photos any time.
@@ -159,14 +158,14 @@
       ctx.restore();
     }
 
-    if (!reduce) requestAnimationFrame(frame);
+    requestAnimationFrame(frame);
   }
 
-  // rotation step (kept in a fn so reduced-motion can render one static frame)
-  function rotYv() { if (!reduce) { rotY += 0.0045; rotX = -0.12 + Math.sin(Date.now() * 0.0002) * 0.1; } }
+  // rotation step — always animate (the rotating sphere is core content)
+  function rotYv() { rotY += 0.0045; rotX = -0.12 + Math.sin(Date.now() * 0.0002) * 0.1; }
 
   measure();
-  window.addEventListener('resize', function () { measure(); if (reduce) frame(); }, { passive: true });
+  window.addEventListener('resize', measure, { passive: true });
   window.addEventListener('load', measure);
   frame();
 })();
