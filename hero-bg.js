@@ -15,24 +15,21 @@
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---- EDIT ME: diverse nurses in scrubs/gowns (placeholders) ----
+  // ---- diverse nurse illustrations (original artwork, copyright-free) ----
+  // Stored locally in assets/images/. Swap these for real photos any time.
   var NURSE_PHOTOS = [
-    'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1582750433449-648ed127bb54?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1551601651-2a8555f1a136?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1584516150909-c43483ee7932?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?auto=format&fit=crop&w=400&h=400&q=70',
-    'https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=400&h=400&q=70'
+    'assets/images/nurse-1.svg',
+    'assets/images/nurse-2.svg',
+    'assets/images/nurse-3.svg',
+    'assets/images/nurse-4.svg',
+    'assets/images/nurse-5.svg',
+    'assets/images/nurse-6.svg',
+    'assets/images/nurse-7.svg',
+    'assets/images/nurse-8.svg'
   ];
 
   var imgs = NURSE_PHOTOS.map(function (u) {
     var im = new Image();
-    im.crossOrigin = 'anonymous';
-    im.referrerPolicy = 'no-referrer';
     im.src = u;
     return im;
   });

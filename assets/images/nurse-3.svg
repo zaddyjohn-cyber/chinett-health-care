@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f6df"/><stop offset="1" stop-color="#d3edc1"/></linearGradient></defs>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <!-- scrubs -->
+  <path d="M52 400 C52 300 118 262 200 262 C282 262 348 300 348 400 Z" fill="#6FB13C"/>
+  <!-- hijab drape -->
+  <path d="M104 188 C92 80 308 80 296 188 C306 252 270 300 200 300 C130 300 94 252 104 188 Z" fill="#16a0a0"/>
+  <path d="M120 196 C112 110 288 110 280 196 C288 250 256 286 200 286 C144 286 112 250 120 196 Z" fill="#1AB0B0"/>
+  <!-- face -->
+  <ellipse cx="200" cy="172" rx="55" ry="67" fill="#c68642"/>
+  <!-- cross badge -->
+  <rect x="236" y="300" width="8" height="22" fill="#ffffff"/>
+  <rect x="229" y="307" width="22" height="8" fill="#ffffff"/>
+  <!-- face features -->
+  <ellipse cx="182" cy="172" rx="5.5" ry="7.5" fill="#2a1d12"/>
+  <ellipse cx="218" cy="172" rx="5.5" ry="7.5" fill="#2a1d12"/>
+  <path d="M172 158 q10 -7 20 -1" stroke="#3a2618" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M208 157 q10 -6 20 1" stroke="#3a2618" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M184 200 q16 14 32 0" stroke="#9b5240" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

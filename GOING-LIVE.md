@@ -26,12 +26,12 @@ Developer reference only — not part of the live site.
 
 - **Google Fonts** — Cormorant Garamond, DM Sans, Montserrat
 - **AOS** (Animate On Scroll) — `unpkg.com/aos@2.3.1`
-- **`hero-bg.js`** (homepage only) — pure Canvas 2D animation: a rotating 3D sphere of nurse
-  photos that change as it spins. No WebGL/library; honors prefers-reduced-motion.
-  **To use your own photos:** edit the `NURSE_PHOTOS` array at the top of `hero-bg.js`
-  (square images, ideally diverse nurses in scrubs/gowns; local paths like
-  `assets/images/nurse1.jpg` work too). The current URLs are generic medical-professional
-  placeholders — replace them with your real, approved photos before launch.
+- **`hero-bg.js`** (homepage only) — pure Canvas 2D animation: a rotating 3D sphere of diverse
+  nurse illustrations that change as it spins. No WebGL/library; honors prefers-reduced-motion.
+  The images are **original copyright-free SVG illustrations** in `assets/images/nurse-1..8.svg`
+  (varied skin tones, hijabs, a bearded male, different scrub colours). To use real photos
+  instead, just replace the file paths in the `NURSE_PHOTOS` array at the top of `hero-bg.js`
+  (square images work best; URLs or local paths both fine).
 
 Differences from the original spec, by intention (fewer dependencies, same result):
 - **CountUp.js** not used — the stat counters use a small custom `requestAnimationFrame`

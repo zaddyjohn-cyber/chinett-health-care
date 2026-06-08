@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9edf4"/><stop offset="1" stop-color="#d5dfea"/></linearGradient></defs>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <path d="M52 400 C52 298 118 258 200 258 C282 258 348 298 348 400 Z" fill="#235789"/>
+  <path d="M200 258 L174 300 Q200 316 226 300 Z" fill="#18406a"/>
+  <rect x="182" y="224" width="36" height="42" rx="14" fill="#e6b98c"/>
+  <!-- long straight hair (behind) -->
+  <rect x="118" y="118" width="34" height="184" rx="17" fill="#15110f"/>
+  <rect x="248" y="118" width="34" height="184" rx="17" fill="#15110f"/>
+  <!-- head -->
+  <circle cx="200" cy="162" r="72" fill="#e6b98c"/>
+  <!-- hairline + side fringe -->
+  <path d="M124 170 C124 100 276 100 276 170 C276 138 250 120 200 120 C150 120 124 138 124 170 Z" fill="#15110f"/>
+  <!-- face -->
+  <ellipse cx="180" cy="162" rx="5.5" ry="7" fill="#241b16"/>
+  <ellipse cx="220" cy="162" rx="5.5" ry="7" fill="#241b16"/>
+  <path d="M170 148 q10 -6 20 -1" stroke="#241b16" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M210 147 q10 -5 20 1" stroke="#241b16" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M182 190 q18 14 36 0" stroke="#b06b5a" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6f0fb"/><stop offset="1" stop-color="#cfe2f6"/></linearGradient></defs>
+  <rect width="400" height="400" fill="url(#g)"/>
+  <path d="M52 400 C52 298 118 258 200 258 C282 258 348 298 348 400 Z" fill="#1C82C4"/>
+  <path d="M200 258 L174 300 Q200 316 226 300 Z" fill="#1568a0"/>
+  <rect x="182" y="224" width="36" height="42" rx="14" fill="#fbd3a8"/>
+  <path d="M176 250 C168 288 178 322 200 324 C222 322 232 288 224 250" fill="none" stroke="#eef3f5" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="200" cy="332" r="9" fill="#cdd8dc" stroke="#9fb0b6" stroke-width="2"/>
+  <!-- bun -->
+  <circle cx="200" cy="92" r="28" fill="#e3b95f"/>
+  <!-- head -->
+  <circle cx="200" cy="162" r="72" fill="#fbd3a8"/>
+  <circle cx="128" cy="166" r="12" fill="#fbd3a8"/>
+  <circle cx="272" cy="166" r="12" fill="#fbd3a8"/>
+  <!-- hairline -->
+  <path d="M128 168 C128 102 272 102 272 168 C272 140 246 122 200 122 C154 122 128 140 128 168 Z" fill="#e3b95f"/>
+  <!-- face -->
+  <ellipse cx="180" cy="162" rx="5.5" ry="7.5" fill="#3a2a18"/>
+  <ellipse cx="220" cy="162" rx="5.5" ry="7.5" fill="#3a2a18"/>
+  <path d="M170 147 q10 -7 20 -1" stroke="#b78f4a" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M210 146 q10 -6 20 1" stroke="#b78f4a" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M182 190 q18 15 36 0" stroke="#c87a68" stroke-width="5" fill="none" stroke-linecap="round"/>
+</svg>
