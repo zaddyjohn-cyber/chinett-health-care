@@ -19,9 +19,9 @@
     canvas.style.width = W + 'px';
     canvas.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    CX = W * (W > 800 ? 0.6 : 0.5);
+    CX = W * 0.5;
     CY = H * 0.5;
-    R = Math.min(W, H) * (W > 800 ? 0.42 : 0.42);
+    R = Math.min(W, H) * 0.44;
     focal = R * 3.4;
   }
 

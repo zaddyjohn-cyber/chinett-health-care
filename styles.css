@@ -248,15 +248,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   color: var(--color-text-dark);
   background: radial-gradient(circle at 58% 46%, #e4e2dc 0%, #ceccc5 55%, #bbb9b1 100%);
 }
-.hero-canvas {
-  position: absolute; inset: 0; z-index: -2;
-  width: 100%; height: 100%; display: block;
+/* Fiery 3D wire-sphere holding the logo, in the right column */
+.hero-orb {
+  position: relative; width: 100%; max-width: 500px; margin: 0 auto;
+  aspect-ratio: 1 / 1;
 }
-.hero-overlay {
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    linear-gradient(90deg, rgba(228,226,220,0.92) 0%, rgba(228,226,220,0.55) 34%, rgba(228,226,220,0.06) 64%, rgba(228,226,220,0) 100%);
+.hero-orb canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero-orb-logo {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 58%; border-radius: 10px; background: #000; z-index: 2;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+  animation: breathe 4.5s ease-in-out infinite;
 }
+@media (prefers-reduced-motion: reduce) { .hero-orb-logo { animation: none; } }
 
 .hero .container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--sp-6); align-items: center; padding-top: var(--nav-h); }
 .hero-content { max-width: 680px; }
