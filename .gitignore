@@ -1,6 +1,10 @@
 # Local Claude Code preview helpers & settings (not for deployment)
 .claude/
 
+# Reference media / recordings (not part of the site)
+*.mp4
+*.mov
+
 # OS files
 Thumbs.db
 Desktop.ini
