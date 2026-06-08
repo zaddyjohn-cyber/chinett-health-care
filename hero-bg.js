@@ -1,163 +1,174 @@
 /* ============================================================
-   CHINETT — 3D hero background (network / particle sphere)
-   Requires THREE (loaded via CDN before this file). index.html only.
+   CHINETT — hero background: tangled wire sphere with fiery core.
+   Pure Canvas 2D (no WebGL) so it renders everywhere. index.html only.
    ============================================================ */
 (function () {
   var canvas = document.getElementById('hero-canvas');
-  if (!canvas || !window.THREE) return;
-
-  // Respect reduced-motion: render a single static frame, no animation loop.
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
   var host = canvas.parentElement; // .hero
-  var THREE = window.THREE;
+  var DPR = Math.min(window.devicePixelRatio || 1, 2);
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
-  camera.position.z = 18;
-
-  var renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-  } catch (e) {
-    // No WebGL — leave the CSS navy gradient as the background.
-    canvas.style.display = 'none';
-    return;
-  }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-
+  var W, H, CX, CY, R, focal;
   function resize() {
-    var w = host.clientWidth, h = host.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+    W = host.clientWidth; H = host.clientHeight;
+    canvas.width = Math.round(W * DPR);
+    canvas.height = Math.round(H * DPR);
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W * (W > 800 ? 0.6 : 0.5);
+    CY = H * 0.5;
+    R = Math.min(W, H) * (W > 800 ? 0.42 : 0.42);
+    focal = R * 3.4;
   }
 
-  // ---- soft round sprite for glowing dots ----
-  function makeSprite() {
-    var c = document.createElement('canvas'); c.width = c.height = 64;
+  // ---- pre-rendered glow sprites (fast drawImage instead of per-frame gradients) ----
+  function sprite(size, stops) {
+    var c = document.createElement('canvas'); c.width = c.height = size;
     var x = c.getContext('2d');
-    var g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, 'rgba(255,255,255,1)');
-    g.addColorStop(0.35, 'rgba(255,255,255,0.8)');
-    g.addColorStop(1, 'rgba(255,255,255,0)');
-    x.fillStyle = g; x.fillRect(0, 0, 64, 64);
-    var t = new THREE.Texture(c); t.needsUpdate = true; return t;
+    var g = x.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    for (var i = 0; i < stops.length; i++) g.addColorStop(stops[i][0], stops[i][1]);
+    x.fillStyle = g; x.fillRect(0, 0, size, size);
+    return c;
   }
-  var sprite = makeSprite();
+  var emberSprite = sprite(64, [
+    [0, 'rgba(255,250,235,1)'], [0.25, 'rgba(255,185,85,1)'],
+    [0.55, 'rgba(245,120,28,0.6)'], [1, 'rgba(245,120,28,0)']
+  ]);
+  var coreSprite = sprite(320, [
+    [0, 'rgba(255,248,228,1)'], [0.14, 'rgba(255,180,80,0.95)'],
+    [0.38, 'rgba(240,110,25,0.55)'], [0.7, 'rgba(220,80,15,0.18)'], [1, 'rgba(220,80,15,0)']
+  ]);
 
-  var group = new THREE.Group();
-  // Slightly right of centre on wide screens, centred on narrow ones.
-  group.position.x = (host.clientWidth > 800) ? 1.2 : 0;
-  scene.add(group);
-
-  // ---- distribute points on a sphere (fibonacci) with slight noise ----
-  var N = 460, R = 7.6;
-  var pts = [];
+  // ---- build a tangled unit sphere ----
+  var N = 360;
+  var base = [];          // unit vectors {x,y,z}
+  var ember = [];         // boolean per node
   var golden = Math.PI * (3 - Math.sqrt(5));
   for (var i = 0; i < N; i++) {
     var y = 1 - (i / (N - 1)) * 2;
-    var rad = Math.sqrt(1 - y * y);
-    var theta = golden * i;
-    var jitter = 0.9 + Math.random() * 0.2;
-    var px = Math.cos(theta) * rad * R * jitter;
-    var py = y * R * jitter;
-    var pz = Math.sin(theta) * rad * R * jitter;
-    pts.push(new THREE.Vector3(px, py, pz));
+    var rad = Math.sqrt(Math.max(0, 1 - y * y));
+    var th = golden * i;
+    // jitter the radius so the mesh looks crumpled rather than a clean ball
+    var jr = 0.82 + Math.random() * 0.30;
+    base.push({ x: Math.cos(th) * rad * jr, y: y * jr, z: Math.sin(th) * rad * jr });
+    ember.push(Math.random() < 0.22);
   }
 
-  // ---- split into cool nodes and orange embers ----
-  var teal = new THREE.Color(0x1fb6b6);
-  var blue = new THREE.Color(0x2e97d8);
-  var orange = new THREE.Color(0xF47A1F);
+  // ---- neighbour pairs (k nearest) + a few long tangling strands ----
+  var pairs = [];
+  var seen = {};
+  function addPair(a, b) {
+    var k = a < b ? a + '_' + b : b + '_' + a;
+    if (seen[k]) return; seen[k] = 1; pairs.push([a, b]);
+  }
+  for (i = 0; i < N; i++) {
+    var dists = [];
+    for (var j = 0; j < N; j++) {
+      if (j === i) continue;
+      var dx = base[i].x - base[j].x, dy = base[i].y - base[j].y, dz = base[i].z - base[j].z;
+      dists.push([dx * dx + dy * dy + dz * dz, j]);
+    }
+    dists.sort(function (p, q) { return p[0] - q[0]; });
+    for (var n = 0; n < 4; n++) addPair(i, dists[n][1]);
+  }
+  for (i = 0; i < 55; i++) addPair((Math.random() * N) | 0, (Math.random() * N) | 0);
 
-  var coolPos = [], coolCol = [], emberPos = [], isEmber = [];
-  for (i = 0; i < pts.length; i++) {
-    var ember = Math.random() < 0.16;
-    isEmber.push(ember);
-    if (ember) {
-      emberPos.push(pts[i].x, pts[i].y, pts[i].z);
-    } else {
-      coolPos.push(pts[i].x, pts[i].y, pts[i].z);
-      var mix = (pts[i].y / R) * 0.5 + 0.5;
-      var col = teal.clone().lerp(blue, mix);
-      coolCol.push(col.r, col.g, col.b);
+  // ---- math helpers ----
+  var rotY = 0, rotX = -0.2;
+  function project(p) {
+    // rotate Y then X
+    var cy = Math.cos(rotY), sy = Math.sin(rotY);
+    var x1 = p.x * cy - p.z * sy;
+    var z1 = p.x * sy + p.z * cy;
+    var cx = Math.cos(rotX), sx = Math.sin(rotX);
+    var y1 = p.y * cx - z1 * sx;
+    var z2 = p.y * sx + z1 * cx;
+    var zr = z2 * R;
+    var s = focal / (focal - zr);
+    return { x: CX + x1 * R * s, y: CY + y1 * R * s, z: z2, s: s };
+  }
+
+  var P = new Array(N);
+  function compute() { for (var i = 0; i < N; i++) P[i] = project(base[i]); }
+
+  function drawHalo() {
+    // soft dark backdrop behind the orb so dark wires + additive fire both pop on the light bg
+    var r = R * 1.9;
+    var g = ctx.createRadialGradient(CX, CY, 0, CX, CY, r);
+    g.addColorStop(0, 'rgba(22,24,28,0.55)');
+    g.addColorStop(0.5, 'rgba(22,24,28,0.32)');
+    g.addColorStop(1, 'rgba(22,24,28,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(CX, CY, r, 0, Math.PI * 2); ctx.fill();
+  }
+
+  function drawLines(frontOnly) {
+    for (var p = 0; p < pairs.length; p++) {
+      var a = P[pairs[p][0]], b = P[pairs[p][1]];
+      var za = a.z, zb = b.z, front = (za + zb) > 0;
+      if (front !== frontOnly) continue;
+      var depth = (za + zb) / 2;             // -1..1
+      var alpha = front ? 0.75 : 0.38;
+      alpha *= 0.7 + (depth + 1) * 0.18;
+      ctx.lineWidth = front ? 1.4 : 1.0;
+      ctx.strokeStyle = 'rgba(20,24,30,' + alpha.toFixed(3) + ')';
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+      ctx.stroke();
     }
   }
 
-  // cool node points
-  var cg = new THREE.BufferGeometry();
-  cg.setAttribute('position', new THREE.Float32BufferAttribute(coolPos, 3));
-  cg.setAttribute('color', new THREE.Float32BufferAttribute(coolCol, 3));
-  var cm = new THREE.PointsMaterial({
-    size: 0.5, map: sprite, vertexColors: true, transparent: true,
-    opacity: 0.95, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-  });
-  group.add(new THREE.Points(cg, cm));
-
-  // ember points (orange glow)
-  var eg = new THREE.BufferGeometry();
-  eg.setAttribute('position', new THREE.Float32BufferAttribute(emberPos, 3));
-  var em = new THREE.PointsMaterial({
-    size: 1.15, map: sprite, color: orange, transparent: true,
-    opacity: 1.0, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-  });
-  group.add(new THREE.Points(eg, em));
-
-  // ---- connecting filaments between nearby points ----
-  var linePos = [], lineCol = [], threshold = 2.5, maxPerNode = 4;
-  for (i = 0; i < pts.length; i++) {
-    var connections = 0;
-    for (var j = i + 1; j < pts.length; j++) {
-      if (connections >= maxPerNode) break;
-      var d = pts[i].distanceTo(pts[j]);
-      if (d < threshold) {
-        connections++;
-        linePos.push(pts[i].x, pts[i].y, pts[i].z, pts[j].x, pts[j].y, pts[j].z);
-        var warm = isEmber[i] || isEmber[j];
-        var lc = warm ? orange.clone().lerp(teal, 0.5) : teal.clone().lerp(blue, 0.5);
-        lineCol.push(lc.r, lc.g, lc.b, lc.r, lc.g, lc.b);
-      }
+  function drawEmbers() {
+    ctx.globalCompositeOperation = 'lighter';
+    for (var i = 0; i < N; i++) {
+      if (!ember[i]) continue;
+      var p = P[i];
+      var depth = (p.z + 1) / 2;             // 0 back .. 1 front
+      var size = (10 + depth * 16) * p.s;
+      ctx.globalAlpha = 0.35 + depth * 0.55;
+      ctx.drawImage(emberSprite, p.x - size / 2, p.y - size / 2, size, size);
     }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
   }
-  var lg = new THREE.BufferGeometry();
-  lg.setAttribute('position', new THREE.Float32BufferAttribute(linePos, 3));
-  lg.setAttribute('color', new THREE.Float32BufferAttribute(lineCol, 3));
-  var lm = new THREE.LineBasicMaterial({
-    vertexColors: true, transparent: true, opacity: 0.22,
-    depthWrite: false, blending: THREE.AdditiveBlending
-  });
-  group.add(new THREE.LineSegments(lg, lm));
 
-  // ---- faint outer dust ----
-  var dustPos = [];
-  for (i = 0; i < 140; i++) {
-    var rr = R * (1.3 + Math.random() * 0.9);
-    var a = Math.random() * Math.PI * 2, b = Math.acos(2 * Math.random() - 1);
-    dustPos.push(rr * Math.sin(b) * Math.cos(a), rr * Math.cos(b), rr * Math.sin(b) * Math.sin(a));
+  function drawCore(flick) {
+    ctx.globalCompositeOperation = 'lighter';
+    var r = R * 1.35;
+    ctx.globalAlpha = Math.min(1, flick * 1.0);
+    ctx.drawImage(coreSprite, CX - r, CY - r, r * 2, r * 2);
+    // tight hot center
+    var r2 = R * 0.55;
+    ctx.globalAlpha = 1;
+    ctx.drawImage(coreSprite, CX - r2, CY - r2, r2 * 2, r2 * 2);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
   }
-  var dg = new THREE.BufferGeometry();
-  dg.setAttribute('position', new THREE.Float32BufferAttribute(dustPos, 3));
-  var dm = new THREE.PointsMaterial({
-    size: 0.28, map: sprite, color: 0x8fb9c9, transparent: true,
-    opacity: 0.4, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
-  });
-  group.add(new THREE.Points(dg, dm));
 
-  // ---- animate ----
+  var t = 0;
+  function frame() {
+    t += 1;
+    rotY = t * 0.0022;
+    rotX = -0.18 + Math.sin(t * 0.0014) * 0.12;
+    compute();
+    ctx.clearRect(0, 0, W, H);
+
+    var flick = 0.85 + Math.sin(t * 0.07) * 0.07 + Math.sin(t * 0.21) * 0.03;
+
+    drawHalo();         // dark backdrop so the orb stands out on light bg
+    drawLines(false);   // back strands
+    drawCore(flick);    // fire glows from inside
+    drawLines(true);    // front strands occlude the glow -> caged fire
+    drawEmbers();       // glowing embers / sparks on top
+
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
   resize();
-  window.addEventListener('resize', resize, { passive: true });
-
-  group.rotation.x = -0.15;
-  if (reduceMotion) {
-    renderer.render(scene, camera);
-    return;
-  }
-  function tick() {
-    group.rotation.y += 0.0016;
-    group.rotation.x = -0.12 + Math.sin(Date.now() * 0.0001) * 0.14;
-    renderer.render(scene, camera);
-    requestAnimationFrame(tick);
-  }
-  tick();
+  window.addEventListener('resize', function () { resize(); if (reduce) { compute(); frame(); } }, { passive: true });
+  frame();
 })();

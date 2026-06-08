@@ -26,8 +26,9 @@ Developer reference only — not part of the live site.
 
 - **Google Fonts** — Cormorant Garamond, DM Sans, Montserrat
 - **AOS** (Animate On Scroll) — `unpkg.com/aos@2.3.1`
-- **Three.js** (`r128`, homepage only) — powers the animated 3D network-sphere hero background
-  (`hero-bg.js`). Browsers without WebGL gracefully fall back to the navy gradient.
+- **`hero-bg.js`** (homepage only) — pure Canvas 2D animation: a rotating tangled wireframe
+  sphere with a glowing fiery core + ember nodes (matches the reference video). No WebGL or
+  external library required; honors prefers-reduced-motion.
 
 Differences from the original spec, by intention (fewer dependencies, same result):
 - **CountUp.js** not used — the stat counters use a small custom `requestAnimationFrame`

@@ -209,6 +209,12 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--color-primary); }
 
+/* Light hero (homepage): dark nav text on the transparent (unscrolled) navbar */
+.hero-light .navbar:not(.scrolled) .nav-links a { color: var(--color-text-dark); }
+.hero-light .navbar:not(.scrolled) .nav-links a.active { color: var(--color-primary); }
+.hero-light .navbar:not(.scrolled) .nav-links a:hover::after { background: var(--color-accent); }
+.hero-light .navbar:not(.scrolled) .hamburger span { background: var(--color-text-dark); }
+
 /* Mobile overlay */
 .mobile-nav {
   position: fixed; inset: 0; background: var(--color-bg-ivory);
@@ -239,8 +245,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   position: relative; min-height: 100vh;
   display: flex; align-items: center;
   overflow: hidden;
-  color: #fff;
-  background: radial-gradient(circle at 68% 48%, #143a52 0%, #0c2536 55%, #07151f 100%);
+  color: var(--color-text-dark);
+  background: radial-gradient(circle at 58% 46%, #e4e2dc 0%, #ceccc5 55%, #bbb9b1 100%);
 }
 .hero-canvas {
   position: absolute; inset: 0; z-index: -2;
@@ -249,8 +255,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 .hero-overlay {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(90deg, rgba(7,21,31,0.9) 0%, rgba(7,21,31,0.55) 40%, rgba(7,21,31,0.08) 72%, rgba(7,21,31,0) 100%),
-    linear-gradient(0deg, rgba(7,21,31,0.65) 0%, transparent 35%);
+    linear-gradient(90deg, rgba(228,226,220,0.92) 0%, rgba(228,226,220,0.55) 34%, rgba(228,226,220,0.06) 64%, rgba(228,226,220,0) 100%);
 }
 
 .hero .container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--sp-6); align-items: center; padding-top: var(--nav-h); }
@@ -266,19 +271,19 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 
 .hero h1 {
   font-size: clamp(44px, 6vw, 72px);
-  color: #fff; line-height: 1.1; margin-bottom: var(--sp-3);
+  color: var(--color-text-dark); line-height: 1.1; margin-bottom: var(--sp-3);
 }
 .hero h1 em { font-style: italic; color: var(--color-accent); }
 
 .hero-sub {
-  font-size: 20px; color: rgba(255,255,255,0.82); line-height: 1.7;
+  font-size: 20px; color: var(--color-text-body); line-height: 1.7;
   max-width: 520px; margin-bottom: var(--sp-4);
 }
 
 .hero-ctas { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-bottom: var(--sp-4); }
 
 .hero-trust { display: flex; flex-wrap: wrap; gap: var(--sp-4); }
-.hero-trust span { font-size: 13px; color: rgba(255,255,255,0.9); display: inline-flex; align-items: center; gap: 6px; }
+.hero-trust span { font-size: 13px; color: var(--color-text-body); display: inline-flex; align-items: center; gap: 6px; }
 .hero-trust span::before { content: '✔'; color: var(--color-accent); font-weight: 700; }
 
 /* Quick request card */
@@ -318,7 +323,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-  color: #fff; cursor: pointer; z-index: 2;
+  color: var(--color-primary-dark); cursor: pointer; z-index: 2;
   animation: bounce 2s infinite;
 }
 .scroll-indicator svg { width: 30px; height: 30px; }
