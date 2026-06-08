@@ -428,6 +428,72 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
 .service-card p { font-size: 15px; color: var(--color-text-body); margin-bottom: var(--sp-2); }
 
 /* ============================================================
+   8b. DUAL ANIMATED BAND — pitch (light streams) + intro (gradient)
+   ============================================================ */
+.duo-band { background: #fff; padding: var(--sp-5) 0 var(--sp-6); }
+.duo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+.duo-panel {
+  position: relative; overflow: hidden; border-radius: var(--r-card);
+  padding: var(--sp-5); min-height: 250px; color: #fff;
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  box-shadow: var(--shadow-soft);
+}
+.duo-panel > * { position: relative; z-index: 3; }
+.duo-eyebrow { font-family: var(--font-label); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: var(--sp-2); }
+.duo-rotator { position: relative; width: 100%; height: 78px; margin-bottom: var(--sp-2); }
+.duo-rotator span {
+  position: absolute; left: 0; top: 0; right: 0; opacity: 0;
+  font-family: var(--font-display); font-weight: 700; line-height: 1.15;
+  font-size: clamp(22px, 2.8vw, 32px); color: #fff;
+  text-shadow: 0 2px 14px rgba(0,0,0,0.35);
+}
+.duo-sub { font-size: 15px; color: rgba(255,255,255,0.9); margin-bottom: var(--sp-3); max-width: 340px; text-shadow: 0 1px 8px rgba(0,0,0,0.3); }
+
+/* Left panel: flowing glowing light streams on dark */
+.duo-panel.pitch { background: #0a2231; }
+.duo-panel.pitch::before {
+  content: ''; position: absolute; inset: -45%; z-index: 0;
+  background:
+    radial-gradient(closest-side, rgba(30,130,196,0.65), transparent 72%) 12% 32%/55% 65% no-repeat,
+    radial-gradient(closest-side, rgba(20,163,163,0.6),  transparent 72%) 84% 60%/60% 70% no-repeat,
+    radial-gradient(closest-side, rgba(120,90,210,0.45), transparent 72%) 48% 92%/52% 62% no-repeat;
+  filter: blur(18px); will-change: transform;
+  animation: streamMove 10s ease-in-out infinite alternate;
+}
+.duo-panel.pitch::after {
+  content: ''; position: absolute; inset: 0; z-index: 1; opacity: 0.5;
+  background: repeating-linear-gradient(118deg, transparent 0 13px, rgba(150,210,255,0.08) 13px 15px);
+  animation: streamSlide 7s linear infinite;
+}
+@keyframes streamMove { from { transform: translate3d(-6%, -5%, 0); } to { transform: translate3d(8%, 6%, 0); } }
+@keyframes streamSlide { from { background-position: 0 0; } to { background-position: 130px 0; } }
+
+/* Right panel: shifting multi-colour gradient */
+.duo-panel.intro {
+  background: linear-gradient(120deg, #16244a, #5a3a8c, #13708c, #15a3a3, #c25a2a, #16244a);
+  background-size: 320% 320%;
+  animation: gradShift 12s ease infinite;
+}
+.duo-panel.intro::before { content: ''; position: absolute; inset: 0; z-index: 0; background: rgba(8,18,32,0.30); }
+@keyframes gradShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* Rotating text (each ~10s loop) */
+.duo-6 span { animation: rot6 10s infinite; }
+.duo-6 span:nth-child(1){ animation-delay: 0s; }
+.duo-6 span:nth-child(2){ animation-delay: 1.667s; }
+.duo-6 span:nth-child(3){ animation-delay: 3.333s; }
+.duo-6 span:nth-child(4){ animation-delay: 5s; }
+.duo-6 span:nth-child(5){ animation-delay: 6.667s; }
+.duo-6 span:nth-child(6){ animation-delay: 8.333s; }
+.duo-4 span { animation: rot4 10s infinite; }
+.duo-4 span:nth-child(1){ animation-delay: 0s; }
+.duo-4 span:nth-child(2){ animation-delay: 2.5s; }
+.duo-4 span:nth-child(3){ animation-delay: 5s; }
+.duo-4 span:nth-child(4){ animation-delay: 7.5s; }
+@keyframes rot6 { 0%{opacity:0;transform:translateY(14px)} 2%{opacity:1;transform:translateY(0)} 15%{opacity:1;transform:translateY(0)} 16.6%{opacity:0;transform:translateY(-14px)} 100%{opacity:0} }
+@keyframes rot4 { 0%{opacity:0;transform:translateY(14px)} 3%{opacity:1;transform:translateY(0)} 23%{opacity:1;transform:translateY(0)} 25%{opacity:0;transform:translateY(-14px)} 100%{opacity:0} }
+
+/* ============================================================
    9. WHO WE SERVE
    ============================================================ */
 .audience { background: linear-gradient(180deg, var(--color-bg-ivory) 0%, #fff 100%); }
@@ -913,4 +979,5 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
   .section { padding: var(--sp-6) 0; }
   .tcards { columns: 1; }
   .form-grid { grid-template-columns: 1fr; }
+  .duo-grid { grid-template-columns: 1fr; }
 }
