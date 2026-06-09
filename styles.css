@@ -754,7 +754,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); color: var(--color-text-dark)
    22. LEADERSHIP / PRESIDENT
    ============================================================ */
 .leadership { background: var(--color-bg-ivory); }
-.leadership .container { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: var(--sp-6); align-items: start; }
+.leadership .container { max-width: 820px; }
 .leader-img-wrap { position: relative; }
 .leader-img-wrap img { width: 100%; border-radius: 20px; aspect-ratio: 3/4; object-fit: cover; box-shadow: var(--shadow-soft); }
 .leader-img-wrap::after {
