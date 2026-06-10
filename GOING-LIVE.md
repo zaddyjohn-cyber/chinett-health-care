@@ -67,7 +67,7 @@ Real details now in place:
 - ✅ **Phone**: `(443) 563-7693` (main + emergency line), clickable `tel:+14435637693`
 - ✅ **WhatsApp**: `wa.me/14435637693`
 - ✅ **Address**: 5207 Plainfield Avenue, Baltimore, MD 21206 (+ Google Maps `q=` updated)
-- ✅ **Email**: `chinetthealthcare@gmail.com` everywhere (temporary Gmail until a domain email exists)
+- ✅ **Email**: `support@chinetthealthcare.com` everywhere (temporary Gmail until a domain email exists)
 - ✅ **Testimonials**: Americanized to US names + Maryland locations (still placeholder quotes —
   replace with real, approved client testimonials when available)
 
@@ -96,7 +96,7 @@ The site is themed to the **Chinett HealthCare Inc. logo** palette (set in `styl
 - ✅ Privacy Policy (`privacy.html`) + Terms of Service (`terms.html`) — footer links now point to them
 - ✅ Favicon (`favicon.svg`) linked in every page `<head>`
 - ✅ Full rebrand to logo colors across all pages
-- ✅ Contact form now **delivers to `chinetthealthcare@gmail.com`** via FormSubmit
+- ✅ Contact form now **delivers to `support@chinetthealthcare.com`** via FormSubmit
   (`https://formsubmit.co/ajax/...` in `scripts.js`) — no backend/signup, keeps the in-page
   success animation. ⚠️ **Activation:** the FIRST submission triggers a one-time confirmation
   email from FormSubmit to that Gmail — open it and click "Activate" once, then all future
@@ -106,7 +106,7 @@ The site is themed to the **Chinett HealthCare Inc. logo** palette (set in `styl
 ## Still to do before launch
 - Replace remaining placeholders (see list above): president name, social links, stats, testimonial quotes.
 - **Activate FormSubmit** by submitting the contact form once and clicking the confirmation email.
-- Swap `chinetthealthcare@gmail.com` for the domain email once you have it.
+- Swap `support@chinetthealthcare.com` for the domain email once you have it.
 - Privacy/Terms are **templates** — have a lawyer review for the U.S./Maryland laws (e.g. HIPAA) that apply.
 
 ## Local preview

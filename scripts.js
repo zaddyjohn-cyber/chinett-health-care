@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
       };
 
       try {
-        const res = await fetch('https://formsubmit.co/ajax/chinetthealthcare@gmail.com', {
+        const res = await fetch('https://formsubmit.co/ajax/support@chinetthealthcare.com', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(payload)
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         showSuccess(name);
       } catch (err) {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = originalLabel; }
-        alert('Sorry, something went wrong sending your request. Please call (443) 563-7693 or email chinetthealthcare@gmail.com directly.');
+        alert('Sorry, something went wrong sending your request. Please call (443) 563-7693 or email support@chinetthealthcare.com directly.');
       }
     });
   }
