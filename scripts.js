@@ -186,7 +186,8 @@ document.addEventListener('DOMContentLoaded', function () {
         Duration: val('#duration'),
         Location: val('#location'),
         Notes: val('#notes'),
-        'Heard About Us': val('#hear')
+        'Heard About Us': val('#hear'),
+        'SMS Consent': (careForm.querySelector('#sms-consent') && careForm.querySelector('#sms-consent').checked) ? 'Yes — opted in to SMS' : 'No'
       };
 
       try {
